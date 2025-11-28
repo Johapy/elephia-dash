@@ -8,16 +8,23 @@
 </head>
 <body>
   <div class="dashboard">
-    <aside class="sidebar">
-      <h2>Mindgle</h2>
+    <aside id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+          <h2>Mindgle</h2>
+          <button id="closeSidebar" class="close-btn">&times;</button>
+        </div>
       <nav>
         <ul>
           <li onclick="window.location.href='index.html'">Transacciones</li>
-          <li>Usuarios</li>
+          <li onclick="window.location.href='users.html'">Usuarios</li>
           <li>Métodos de Pago</li>
         </ul>
       </nav>
     </aside>
+
+      <!-- Botón abrir sidebar en mobile -->
+      <button id="openSidebar" class="open-btn">&#9776;</button>
+
 
     <main class="main-content">
       <header>

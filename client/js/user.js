@@ -18,6 +18,29 @@ const params = new URLSearchParams(window.location.search);
 const telegramId = params.get("telegramId");
 userTitle.textContent = `Transacciones del Usuario: ${telegramId}`;
 
+// ---------- SIDEBAR LOGIC ----------
+const sidebar = document.getElementById("sidebar");
+const openBtn = document.getElementById("openSidebar");
+const closeBtn = document.getElementById("closeSidebar");
+
+function openSidebar() {
+  sidebar.classList.add("active");
+}
+
+function closeSidebar() {
+  sidebar.classList.remove("active");
+}
+
+if(openBtn) openBtn.addEventListener("click", openSidebar);
+if(closeBtn) closeBtn.addEventListener("click", closeSidebar);
+
+// Cerrar al hacer click en enlace mobile
+sidebar.querySelectorAll("li").forEach(link => {
+  link.addEventListener("click", () => {
+    if (window.innerWidth <= 768) closeSidebar();
+  });
+});
+
 // ---------- CARGAR DATOS ----------
 async function loadUserTransactions() {
   try {
@@ -36,6 +59,11 @@ function renderTable() {
   tableBody.innerHTML = "";
   const start = (currentPage - 1) * pageSize;
   const pageItems = transactions.slice(start, start + pageSize);
+  
+  if (pageItems.length === 0) {
+      tableBody.innerHTML = "<tr><td colspan='8'>No hay transacciones.</td></tr>";
+      return;
+  }
 
   pageItems.forEach(tx => {
     const row = document.createElement("tr");
@@ -52,7 +80,7 @@ function renderTable() {
     tableBody.appendChild(row);
   });
 
-  pageInfo.textContent = `Página ${currentPage} de ${Math.ceil(transactions.length / pageSize)}`;
+  pageInfo.textContent = `Página ${currentPage} de ${Math.ceil(transactions.length / pageSize) || 1}`;
   prevBtn.disabled = currentPage === 1;
   nextBtn.disabled = currentPage * pageSize >= transactions.length;
 }
@@ -98,5 +126,9 @@ async function loadPaymentMethods() {
 }
 
 // ---------- INICIO ----------
-loadUserTransactions();
-loadPaymentMethods();
+if(telegramId){
+    loadUserTransactions();
+    loadPaymentMethods();
+} else {
+    tableBody.innerHTML = "<tr><td colspan='8'>No se especificó un ID de usuario.</td></tr>";
+}
