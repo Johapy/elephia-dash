@@ -61,7 +61,8 @@ async function loadUserInfo() {
         u_fullName.textContent = `${user.first_name || ""} ${user.last_name || ""}`;
         u_username.textContent = user.username ? `@${user.username}` : "-";
         u_email.textContent = user.email || "-";
-        u_phone.textContent = user.phone_number || "-";
+        // Aquí se corrige la propiedad del teléfono
+        u_phone.textContent = user.phone || "-";
         
         if (user.created_at) {
             u_joined.textContent = new Date(user.created_at).toLocaleDateString();

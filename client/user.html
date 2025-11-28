@@ -34,26 +34,26 @@
       <section class="content-area">
         
         <!-- Sección de Datos del Usuario -->
-        <div id="userDetails" class="user-details-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
-            <h2>Información Personal</h2>
-            <div class="details-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+        <div id="userDetails" class="user-details-card" style="background: var(--glass-bg); backdrop-filter: blur(var(--blur)); padding: 20px; border-radius: var(--border-radius); border: 1px solid rgba(255, 255, 255, 0.1); margin-bottom: 20px;">
+            <h2 style="margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">Información Personal</h2>
+            <div class="details-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
                 <div>
-                    <strong>Telegram ID:</strong> <span id="u_telegramId">Cargando...</span>
+                    <strong style="color: var(--accent);">Telegram ID:</strong> <span id="u_telegramId">Cargando...</span>
                 </div>
                 <div>
-                    <strong>Nombre Completo:</strong> <span id="u_fullName">-</span>
+                    <strong style="color: var(--accent);">Nombre Completo:</strong> <span id="u_fullName">-</span>
                 </div>
                 <div>
-                    <strong>Usuario:</strong> <span id="u_username">-</span>
+                    <strong style="color: var(--accent);">Usuario:</strong> <span id="u_username">-</span>
                 </div>
                 <div>
-                    <strong>Email:</strong> <span id="u_email">-</span>
+                    <strong style="color: var(--accent);">Email:</strong> <span id="u_email">-</span>
                 </div>
                 <div>
-                    <strong>Teléfono:</strong> <span id="u_phone">-</span>
+                    <strong style="color: var(--accent);">Teléfono:</strong> <span id="u_phone">-</span>
                 </div>
                 <div>
-                    <strong>Fecha Registro:</strong> <span id="u_joined">-</span>
+                    <strong style="color: var(--accent);">Fecha Registro:</strong> <span id="u_joined">-</span>
                 </div>
             </div>
         </div>
