@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Transacciones del Usuario</title>
+  <title>Detalle del Usuario</title>
   <link rel="stylesheet" href="./css/styles.css" />
 </head>
 <body>
@@ -28,10 +28,37 @@
 
     <main class="main-content">
       <header>
-        <h1 id="userTitle">Transacciones del Usuario</h1>
+        <h1>Detalle del Usuario</h1>
       </header>
 
       <section class="content-area">
+        
+        <!-- Sección de Datos del Usuario -->
+        <div id="userDetails" class="user-details-card" style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+            <h2>Información Personal</h2>
+            <div class="details-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px;">
+                <div>
+                    <strong>Telegram ID:</strong> <span id="u_telegramId">Cargando...</span>
+                </div>
+                <div>
+                    <strong>Nombre Completo:</strong> <span id="u_fullName">-</span>
+                </div>
+                <div>
+                    <strong>Usuario:</strong> <span id="u_username">-</span>
+                </div>
+                <div>
+                    <strong>Email:</strong> <span id="u_email">-</span>
+                </div>
+                <div>
+                    <strong>Teléfono:</strong> <span id="u_phone">-</span>
+                </div>
+                <div>
+                    <strong>Fecha Registro:</strong> <span id="u_joined">-</span>
+                </div>
+            </div>
+        </div>
+
+        <h3>Historial de Transacciones</h3>
         <div class="table-container">
           <table id="userTransactionsTable">
             <thead>

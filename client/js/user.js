@@ -1,13 +1,23 @@
 const API_TX = "http://62.169.27.35:3000/api/transactions";
 const API_PM = "http://62.169.27.35:3000/api/payment-methods";
+const API_USERS = "http://62.169.27.35:3000/api/users"; // Nueva constante para users
 
 const tableBody = document.querySelector("#userTransactionsTable tbody");
 const prevBtn = document.getElementById("prevPage");
 const nextBtn = document.getElementById("nextPage");
 const pageInfo = document.getElementById("pageInfo");
-const userTitle = document.getElementById("userTitle");
+// const userTitle = document.getElementById("userTitle"); // Ya no se usa userTitle en header sino en la card
 const pmContainer = document.getElementById("userPaymentMethods");
 const pmList = document.getElementById("paymentMethodsList");
+
+// Elementos del perfil de usuario
+const u_telegramId = document.getElementById("u_telegramId");
+const u_fullName = document.getElementById("u_fullName");
+const u_username = document.getElementById("u_username");
+const u_email = document.getElementById("u_email");
+const u_phone = document.getElementById("u_phone");
+const u_joined = document.getElementById("u_joined");
+
 
 let transactions = [];
 let currentPage = 1;
@@ -16,7 +26,6 @@ const pageSize = 5;
 // Obtener telegramId de la URL
 const params = new URLSearchParams(window.location.search);
 const telegramId = params.get("telegramId");
-userTitle.textContent = `Transacciones del Usuario: ${telegramId}`;
 
 // ---------- SIDEBAR LOGIC ----------
 const sidebar = document.getElementById("sidebar");
@@ -41,7 +50,33 @@ sidebar.querySelectorAll("li").forEach(link => {
   });
 });
 
-// ---------- CARGAR DATOS ----------
+// ---------- CARGAR DATOS DEL USUARIO ----------
+async function loadUserInfo() {
+    try {
+        const res = await fetch(`${API_USERS}/${telegramId}`);
+        if (!res.ok) throw new Error("Error al obtener datos del usuario");
+        const user = await res.json();
+        
+        u_telegramId.textContent = user.telegram_id || "-";
+        u_fullName.textContent = `${user.first_name || ""} ${user.last_name || ""}`;
+        u_username.textContent = user.username ? `@${user.username}` : "-";
+        u_email.textContent = user.email || "-";
+        u_phone.textContent = user.phone_number || "-";
+        
+        if (user.created_at) {
+            u_joined.textContent = new Date(user.created_at).toLocaleDateString();
+        } else {
+            u_joined.textContent = "-";
+        }
+
+    } catch (err) {
+        console.error(err);
+        u_telegramId.textContent = "Error al cargar";
+    }
+}
+
+
+// ---------- CARGAR TRANSACCIONES ----------
 async function loadUserTransactions() {
   try {
     const res = await fetch(`${API_TX}/${telegramId}`);
@@ -127,8 +162,9 @@ async function loadPaymentMethods() {
 
 // ---------- INICIO ----------
 if(telegramId){
+    loadUserInfo();
     loadUserTransactions();
     loadPaymentMethods();
 } else {
-    tableBody.innerHTML = "<tr><td colspan='8'>No se especificó un ID de usuario.</td></tr>";
+    document.querySelector(".content-area").innerHTML = "<h3>No se especificó un ID de usuario.</h3>";
 }
